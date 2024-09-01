@@ -1,0 +1,36 @@
+.star {
+    color: #d3cf00;
+    font-size: 22px;
+    margin-right: 6px;
+}
+
+.row {
+    justify-content: center;
+}
+
+.pagination {
+    width: fit-content !important;
+    margin-top: 25px !important;
+}
+
+.card:hover {
+    background-color: #495057;
+    transition: all 0.8s ease;
+}
+
+.logo {
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5%;
+    transition: all 1.5s ease;
+}
+
+.logo:hover {
+    background-color: #0dcaf0;
+}
+
+.logo img {
+    width: 150px !important;
+
+}

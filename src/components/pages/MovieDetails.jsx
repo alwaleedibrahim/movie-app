@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosiInstance from "../../api/axios";
-import { Button } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
+
+import "./Movies.css";
 
 export default function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
-  const navigator = useNavigate()
+  const navigator = useNavigate();
 
-  
   useEffect(() => {
     axiosiInstance
       .get(`movie/${id}`)
@@ -20,9 +21,61 @@ export default function MovieDetails() {
         console.log(err.message);
       });
   }, []);
-  return <>
-  <div>MovieDetails ID: {id}</div>
-  <div>{movie.title}</div>
-  <Button variant="secondary" onClick={()=>{navigator("/movies")}}>Back to movies</Button>
-  </>
+  return (
+    <>
+      <Container>
+        <Row className="my-5">
+          <Col>
+            <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+          </Col>
+          <Col>
+            <h2 className="my-3">{movie.title}</h2>
+            <p>
+              <span className="star">&#9733;</span>
+              {Math.round(movie.vote_average * 10) / 10} ({movie.vote_count})
+            </p>
+            <ButtonGroup className="my-3">
+              {movie.genres &&
+                movie.genres.map((g) => {
+                  return (
+                    <>
+                      <Button variant="outline-info">{g.name}</Button>
+                    </>
+                  );
+                })}
+            </ButtonGroup>
+            <p>{movie.overview}</p>
+            {movie.production_companies &&
+              movie.production_companies.map((c) => {
+                return (
+                  <>
+                    {c.logo_path && (
+                      <div className="logo">
+                        <img
+                          variant="top"
+                          src={`https://image.tmdb.org/t/p/w500/${c.logo_path}`}
+                        />
+                      </div>
+                    )}
+                  </>
+                );
+              })}
+            <Row>
+              <Col className="d-flex justify-content-center">
+                <Button
+                  variant="outline-info"
+                  onClick={() => {
+                    navigator("/movies");
+                  }}
+                  className="my-5"
+                >
+                  Back to movies
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
 }
