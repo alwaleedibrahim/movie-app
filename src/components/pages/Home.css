@@ -4,3 +4,7 @@ section {
   background-attachment: fixed;
   background-size: cover;
 }
+
+h2, h3 {
+  color: #fff !important;
+}
