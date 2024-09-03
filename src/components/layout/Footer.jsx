@@ -1,37 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import LanguageContext from "../../contexts/language.context";
+import stringManager from "../../utils/stringManager";
 
 export default function Footer() {
+  const {language} = useContext(LanguageContext)
+  
   return (
-    <footer class="py-2 mt-3 mb-0">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-muted">
-            Home
-          </a>
+    <footer className="py-2 mt-3 mb-0">
+      <ul className="nav justify-content-center border-bottom pb-3 mb-3">
+        <li className="nav-item">
+          <Link to="/"  className="nav-link px-2 text-muted">{stringManager.home[language]}</Link>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-muted">
-            Features
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-muted">
-            Pricing
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-muted">
-            FAQs
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-muted">
-            About
-          </a>
+        <li className="nav-item">
+          <Link to="/movies"  className="nav-link px-2 text-muted">{stringManager.movies[language]}</Link>
         </li>
       </ul>
-      <p class="text-center text-muted">&copy; 2024 Movie App</p>
-      <p class="text-center text-muted">Built with &hearts; by Alwaleed </p>
+      <p className="text-center text-muted">&copy; 2024 {stringManager.brand[language]}</p>
+      <p className="text-center text-muted">&hearts; {stringManager.builtBy[language]}</p>
     </footer>
   );
 }

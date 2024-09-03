@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosiInstance from "../../api/axios";
 import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 
 import "./Movies.css";
+import LanguageContext from "../../contexts/language.context";
+import stringManager from "../../utils/stringManager";
 
 export default function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
   const navigator = useNavigate();
+  const {language} = useContext(LanguageContext)
 
   useEffect(() => {
     axiosiInstance
@@ -69,7 +72,7 @@ export default function MovieDetails() {
                   }}
                   className="my-5"
                 >
-                  Back to movies
+                  {stringManager.backToMovies[language]}
                 </Button>
               </Col>
             </Row>

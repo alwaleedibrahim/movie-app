@@ -1,16 +1,23 @@
-import { useState } from 'react'
-import './App.css'
-import { RouterProvider } from 'react-router-dom'
-import { router } from './router.config'
+import { useState } from "react";
+import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router.config";
+import LanguageContext from "./contexts/language.context";
+import ThemeContext from "./contexts/theme.context";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [language, setLanguage] = useState("en");
+  const [theme, setTheme] = useState("dark")
 
   return (
     <>
-    <RouterProvider router={router}/>
+      <LanguageContext.Provider value={{ language, setLanguage }}>
+        <ThemeContext.Provider value={{theme, setTheme}}>
+          <RouterProvider router={router} />
+        </ThemeContext.Provider>
+      </LanguageContext.Provider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
