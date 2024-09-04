@@ -29,10 +29,14 @@ const stringManager = {
     en: "Movie App",
     ar: "موقع الأفلام",
   },
-  builtBy : {
+  builtBy: {
     en: "by Alwaleed ",
-    ar: "بواسطة الوليد"
-  }
+    ar: "بواسطة الوليد",
+  },
+  loading: {
+    en: "Loading ...",
+    ar: "جاري التحميل ...",
+  },
 };
 
 export default stringManager;

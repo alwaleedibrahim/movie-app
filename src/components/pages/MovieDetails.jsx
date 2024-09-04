@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosiInstance from "../../api/axios";
 import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
@@ -55,7 +55,7 @@ export default function MovieDetails() {
                     {c.logo_path && (
                       <div className="logo">
                         <img
-                          variant="top"
+                    
                           src={`https://image.tmdb.org/t/p/w500/${c.logo_path}`}
                         />
                       </div>

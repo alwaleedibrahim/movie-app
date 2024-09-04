@@ -1,29 +1,34 @@
-import React, { useEffect, useState } from "react";
-import axiosiInstance from "../../api/axios";
-import { Container, Pagination, Row, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Container, Row, Card } from "react-bootstrap";
+import { useLoaderData, useNavigate, useSearchParams } from "react-router-dom";
 import "./Movies.css";
-
+import LanguageContext from "../../contexts/language.context";
+import stringManager from "../../utils/stringManager";
+import PaginationComponent from "../partials/pagination";
+import PageContext from "../../contexts/page.context";
 export default function Movies() {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
   const navigator = useNavigate();
+  const { language } = useContext(LanguageContext);
+  const {page,setPage} = useContext(PageContext);
+  const response = useLoaderData();
+  const [URLSearchParams] = useSearchParams();
+ 
+  useEffect(()=> {
+    const currentPage = Number(URLSearchParams.get("page")) || 1;
+    if(currentPage != page) {
+      setPage(currentPage);
+    }
+  },[])
 
-  function setPageFormChild(value) {
-    setPage(value);
-    console.log("set page from child", page);
-  }
   useEffect(() => {
-    axiosiInstance
-      .get(`movie/popular?page=${page}`)
-      .then((response) => {
-        setMovies(response.data.results);
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, [page]);
+    navigator(`/movies?page=${page}`);
+    setMovies(response.data.results);
+    console.log(response.data);
+    console.log("useEffect");
+  },[page, URLSearchParams]);
+  console.log(page, language);
+  
   return (
     <>
       <Container>
@@ -53,76 +58,13 @@ export default function Movies() {
               );
             })
           ) : (
-            <h2>No products found</h2>
+            <h2>{stringManager.loading[language]}</h2>
           )}
         </Row>
         <Row>
-          <PaginationComponent
-            currentPage={page}
-            handlePageChange={setPageFormChild}
-          />
+          <PaginationComponent/>
         </Row>
       </Container>
     </>
-  );
-}
-
-function PaginationComponent(props) {
-  const [page, setPage] = useState({});
-
-  function handleClick(value) {
-    console.log("click");
-    props.handlePageChange(value);
-    setPage({ ...page, current: value });
-  }
-  useEffect(() => {
-    setPage({
-      first: 1,
-      last: 500,
-      current: props.currentPage,
-    });
-  }, []);
-  return (
-    <Pagination>
-      <Pagination.First onClick={() => handleClick(page.first)} />
-      {page.current != page.first && (<Pagination.Prev onClick={() => handleClick(page.current - 1)} /> )}
-      {page.current != page.first && (
-        <Pagination.Item onClick={() => handleClick(page.first)}>
-          {page.first}
-        </Pagination.Item>
-      )}
-      {page.current - 2 > page.first && <Pagination.Ellipsis />}
-
-      {page.current - 2 > page.first && (
-        <Pagination.Item onClick={() => handleClick(page.current - 2)}>
-          {page.current - 2}
-        </Pagination.Item>
-      )}
-      {page.current - 1 > page.first && (
-        <Pagination.Item onClick={() => handleClick(page.current - 1)}>
-          {page.current - 1}
-        </Pagination.Item>
-      )}
-      <Pagination.Item active>{page.current}</Pagination.Item>
-      {page.current + 1 < page.last && (
-        <Pagination.Item onClick={() => handleClick(page.current + 1)}>
-          {page.current + 1}
-        </Pagination.Item>
-      )}
-      {page.current + 2 < page.last && (
-        <Pagination.Item onClick={() => handleClick(page.current + 2)}>
-          {page.current + 2}
-        </Pagination.Item>
-      )}
-
-      {page.current + 2 < page.last && <Pagination.Ellipsis />}
-      {page.current != page.last && (
-        <Pagination.Item onClick={() => handleClick(page.last)}>
-          {page.last}
-        </Pagination.Item>
-      )}
-      {page.current != page.last && (<Pagination.Next onClick={() => handleClick(page.current + 1)} />)}
-      <Pagination.Last onClick={() => handleClick(page.last)} />
-    </Pagination>
   );
 }
