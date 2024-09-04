@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useContext } from "react";
 import {  Pagination } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";

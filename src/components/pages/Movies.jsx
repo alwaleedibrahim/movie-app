@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Container, Row, Card } from "react-bootstrap";
+import { Container, Row, Card, Button } from "react-bootstrap";
 import { useLoaderData, useNavigate, useSearchParams } from "react-router-dom";
 import "./Movies.css";
 import LanguageContext from "../../contexts/language.context";
@@ -52,6 +52,7 @@ export default function Movies() {
                     <Card.Text>
                       <span className="star">&#9733;</span>
                       {Math.round(d.vote_average * 10) / 10}{" "}
+                    {d.fav && <Button variant="outline-danger" className="py-1 mx-3 fs-5">&hearts;</Button>}
                     </Card.Text>
                   </Card.Body>
                 </Card>

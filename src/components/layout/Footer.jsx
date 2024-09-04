@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import LanguageContext from "../../contexts/language.context";
 import stringManager from "../../utils/stringManager";
