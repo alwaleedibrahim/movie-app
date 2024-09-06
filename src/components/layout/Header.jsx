@@ -38,6 +38,9 @@ export default function Header() {
             <NavLink to="/movies" className={["nav-link"]}>
               {stringManager.movies[language]}
             </NavLink>
+            <NavLink to="/favorites" className={["nav-link"]}>
+              {stringManager.favorites[language]}
+            </NavLink>
           </Nav>
             <Button
               variant={theme == "light" ? "outline-dark" : "outline-info"}

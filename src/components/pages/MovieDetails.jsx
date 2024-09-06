@@ -17,8 +17,8 @@ export default function MovieDetails() {
     axiosiInstance
       .get(`movie/${id}`)
       .then((response) => {
+        console.log(response);
         setMovie(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.log(err.message);

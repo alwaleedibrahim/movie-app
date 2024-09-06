@@ -10,9 +10,11 @@ const axiosiInstance = axios.create({
 
 axiosiInstance.interceptors.response.use(
   (response) => {
-    response.data.results = response.data.results.map((r) => {
-      return { ...r, fav: Math.random() > 0.5? true: false };
-    });
+    if (response.data?.results) {
+      response.data.results = response.data.results.map((r) => {
+        return { ...r, fav: Math.random() > 0.5? true: false };
+      });
+    }
     return response;
   },
   (error) => {

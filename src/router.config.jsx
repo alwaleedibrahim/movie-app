@@ -5,6 +5,7 @@ import NotFound from "./components/pages/NotFound";
 import MovieDetails from "./components/pages/MovieDetails";
 import Main from "./components/layout/Main";
 import moviesLoader from "./utils/loaders/moviesLoader";
+import Favorites from "./components/pages/Favorites";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ export const router = createBrowserRouter([
     element: <Main />,
     children: [
       { index: true, element: <Home /> },
+      { path: "favorites", element: <Favorites /> },
       { path: "movies/:id", element: <MovieDetails /> },
       {
         path: "movies",

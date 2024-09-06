@@ -37,6 +37,10 @@ const stringManager = {
     en: "Loading ...",
     ar: "جاري التحميل ...",
   },
+  favorites: {
+    en: 'Favorites',
+    ar: 'المفضلة'
+  }
 };
 
 export default stringManager;

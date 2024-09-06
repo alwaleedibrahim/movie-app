@@ -1,46 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { Container, Row, Card, Button } from "react-bootstrap";
-import { useLoaderData, useNavigate, useSearchParams } from "react-router-dom";
-import "./Movies.css";
-import LanguageContext from "../../contexts/language.context";
+import { Button, Card, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux"
 import stringManager from "../../utils/stringManager";
-import PaginationComponent from "../partials/pagination";
-import PageContext from "../../contexts/page.context";
-import { useDispatch, useSelector } from "react-redux";
 import { toggleFav } from "../../store/slices/fav.slice";
-export default function Movies() {
-  const [movies, setMovies] = useState([]);
-  const navigator = useNavigate();
+import { useContext } from "react";
+import LanguageContext from "../../contexts/language.context";
+
+export default function Favorites() {
+  const fav = useSelector(state => state.fav)  
   const { language } = useContext(LanguageContext);
-  const { page, setPage } = useContext(PageContext);
-  const response = useLoaderData();
-  const [URLSearchParams] = useSearchParams();
-
-  const dispach = useDispatch();
-  const fav = useSelector(state => state.fav)
-
-
-  useEffect(() => {
-    const currentPage = Number(URLSearchParams.get("page")) || 1;
-    if (currentPage != page) {
-      setPage(currentPage);
-    }
-  }, []);
-
-  useEffect(() => {
-    navigator(`/movies?page=${page}`);
-    setMovies(response.data.results);
-    console.log(response.data);
-    console.log("useEffect");
-  }, [page, URLSearchParams]);
-  console.log(page, language);
+  const dispach = useDispatch()
 
   return (
-    <>
-      <Container>
+    <Container>
         <Row>
-          {movies && movies.length > 0 ? (
-            movies.map((d, index) => {
+          {fav.favorites && fav.favorites.length > 0 ? (
+            fav.favorites.map((d, index) => {
               return (
                 <Card
                   style={{ width: "18rem" }}
@@ -79,10 +53,6 @@ export default function Movies() {
             <h2>{stringManager.loading[language]}</h2>
           )}
         </Row>
-        <Row>
-          <PaginationComponent />
-        </Row>
-      </Container>
-    </>
-  );
+    </Container>
+  )
 }
