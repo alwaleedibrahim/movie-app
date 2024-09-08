@@ -6,6 +6,8 @@ import MovieDetails from "./components/pages/MovieDetails";
 import Main from "./components/layout/Main";
 import moviesLoader from "./utils/loaders/moviesLoader";
 import Favorites from "./components/pages/Favorites";
+import Login from "./components/pages/Login";
+import Signup from "./components/pages/Signup";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +15,8 @@ export const router = createBrowserRouter([
     element: <Main />,
     children: [
       { index: true, element: <Home /> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <Signup /> },
       { path: "favorites", element: <Favorites /> },
       { path: "movies/:id", element: <MovieDetails /> },
       {

@@ -7,6 +7,7 @@ import LanguageContext from "../../contexts/language.context";
 import stringManager from "../../utils/stringManager";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovieById } from "../../store/slices/movieDetails.slice";
+import UserContext from "../../contexts/user.context";
 
 export default function MovieDetails() {
   const { id } = useParams();
@@ -14,9 +15,13 @@ export default function MovieDetails() {
   const status = useSelector((state) => state.movie.status);
   const navigator = useNavigate();
   const { language } = useContext(LanguageContext);
+  const { user } = useContext(UserContext);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if(!user.token) {
+      navigator('/login')
+    }
     dispatch(getMovieById(id));
   }, []);
 

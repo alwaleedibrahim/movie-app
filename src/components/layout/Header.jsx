@@ -8,10 +8,13 @@ import { Button } from "react-bootstrap";
 import LanguageContext from "../../contexts/language.context";
 import stringManager from "../../utils/stringManager";
 import ThemeContext from "../../contexts/theme.context";
+import UserContext from "../../contexts/user.context";
+import toast from "react-hot-toast";
 
 export default function Header() {
   const { language, setLanguage } = useContext(LanguageContext);
   const { theme, setTheme } = useContext(ThemeContext);
+  const { user, setUser } = useContext(UserContext);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
@@ -20,6 +23,12 @@ export default function Header() {
   useEffect(() => {
     document.documentElement.setAttribute("data-bs-theme", theme);
   }, [theme]);
+
+  function logout() {
+    setUser({});
+    localStorage.removeItem("token");
+    toast.success("Logged out successfully");
+  }
 
   return (
     <Container fluid className="p-0">
@@ -42,18 +51,29 @@ export default function Header() {
               {stringManager.favorites[language]}
             </NavLink>
           </Nav>
-            <Button
-              variant={theme == "light" ? "outline-dark" : "outline-info"}
-              onClick={toggleTheme}
-            >
-              {theme == "light" ? <>&#127769;</> : <>&#9788;</>}
-            </Button>
-            <Button
-              variant="outline-info"
-              onClick={() => setLanguage(language == "en" ? "ar" : "en")}
-            >
-              &#127758; {language == "en" ? "ع" : "EN"}
-            </Button>
+          <Nav className="mx-3">
+            {user.token ? (
+              <Button variant="outline-danger" onClick={logout}>
+                {stringManager.logout[language]}
+              </Button>
+            ) : (
+              <NavLink to="/login" className={["nav-link"]}>
+                {stringManager.login[language]}
+              </NavLink>
+            )}
+          </Nav>
+          <Button
+            variant={theme == "light" ? "outline-dark" : "outline-info"}
+            onClick={toggleTheme}
+          >
+            {theme == "light" ? <>&#127769;</> : <>&#9788;</>}
+          </Button>
+          <Button
+            variant="outline-info"
+            onClick={() => setLanguage(language == "en" ? "ar" : "en")}
+          >
+            &#127758; {language == "en" ? "ع" : "EN"}
+          </Button>
         </Container>
       </Navbar>
     </Container>

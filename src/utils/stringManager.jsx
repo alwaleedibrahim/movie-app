@@ -40,7 +40,19 @@ const stringManager = {
   favorites: {
     en: 'Favorites',
     ar: 'المفضلة'
-  }
+  },
+  login: {
+    en: 'Login',
+    ar: 'تسجيل الدخول'
+  },
+  logout: {
+    en: 'Logout',
+    ar: 'تسجيل الخروج'
+  },
+  signup: {
+    en: 'Signup',
+    ar: 'حساب جديد'
+  },
 };
 
 export default stringManager;

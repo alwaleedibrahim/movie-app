@@ -2,13 +2,22 @@ import { Button, Card, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux"
 import stringManager from "../../utils/stringManager";
 import { toggleFav } from "../../store/slices/fav.slice";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import LanguageContext from "../../contexts/language.context";
+import UserContext from "../../contexts/user.context";
+import { useNavigate } from "react-router-dom";
 
 export default function Favorites() {
   const fav = useSelector(state => state.fav)  
   const { language } = useContext(LanguageContext);
+  const { user } = useContext(UserContext);
   const dispach = useDispatch()
+  const navigator = useNavigate()
+  useEffect(()=> {
+    if ( ! user.token) {
+      navigator('login')
+    }
+  }, [])
 
   return (
     <Container>
