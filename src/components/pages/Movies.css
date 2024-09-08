@@ -13,21 +13,27 @@
     margin-top: 25px !important;
 }
 
+.card {
+   transition: all 0.6s ease;
+}
+
 .card:hover {
-    background-color: #495057;
-    transition: all 0.8s ease;
+    background-color: #49505728;
+    scale: 1.03;
 }
 
 .logo {
     display: inline-block;
+    background-color: #0dcaf06d;
     padding: 5px;
     margin: 10px;
     border-radius: 5%;
-    transition: all 1.5s ease;
+    transition: all 0.7s ease;
 }
 
 .logo:hover {
-    background-color: #0dcaf0;
+    background-color: #0dcaf0b3;
+    scale: 1.1;
 }
 
 .logo img {
@@ -37,4 +43,12 @@
 
 .card-img-top:hover, .card-title:hover {
     cursor: pointer;
+}
+
+.page-item {
+    transition: all 0.3s ease;
+}
+
+.page-item:hover {
+    scale: 0.93;
 }
